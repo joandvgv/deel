@@ -6,10 +6,10 @@ const app = express();
 app.use(bodyParser.json());
 
 app.set("sequelize", sequelize);
-import ContractRoute from "./routes/contract.route";
-import JobsRoute from "./routes/jobs.route";
+import ContractsRouter from "./routes/contracts.router";
+import JobsRouter from "./routes/jobs.router";
 
-app.use("/", ContractRoute);
-app.use("/", JobsRoute);
+app.use("/", ContractsRouter);
+app.use("/", JobsRouter);
 
 export default app;
