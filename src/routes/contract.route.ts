@@ -20,11 +20,11 @@ router.get("/contracts/:id", async (req, res) => {
 });
 
 router.get("/contracts", async (req, res) => {
-  const clientId = req.profile.id;
+  const { id: profileId, profileKey } = req.profile;
 
   const contracts = await Contract.findAll({
     where: {
-      ClientId: clientId,
+      [profileKey]: profileId,
       status: { [Op.not]: ContractStatus.terminated },
     },
   });
