@@ -1,14 +1,13 @@
 import express from "express";
 import { Op } from "sequelize";
 import { getProfile } from "../middleware/getProfile";
-import { ContractStatus } from "../models/Contract";
-import { getModels } from "../utils/models";
+import Contract, { ContractStatus } from "../models/Contract";
+import Job from "../models/Job";
 const router = express.Router();
 
 router.use(getProfile);
 
 router.get("/jobs/unpaid", async (req, res) => {
-  const { Contract, Job } = getModels(req);
   const clientId = req.profile.id;
 
   const contracts = await Contract.findAll({
@@ -25,14 +24,12 @@ router.get("/jobs/unpaid", async (req, res) => {
     },
   });
 
-  const jobs =
-    contracts?.flatMap((contract) => contract.getDataValue("jobs")) ?? [];
+  const jobs = contracts?.flatMap(({ jobs: item }) => item) ?? [];
 
   res.json({ jobs });
 });
 
 router.get("/contracts", async (req, res) => {
-  const { Contract } = getModels(req);
   const clientId = req.profile.id;
 
   const contracts = await Contract.findAll({

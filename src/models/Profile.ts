@@ -1,7 +1,11 @@
 import { Table, Model, Column, AllowNull, HasMany } from "sequelize-typescript";
 import types from "../dataTypes";
 import Contract from "./Contract";
-import "reflect-metadata";
+
+export enum ProfileType {
+  client = "client",
+  contractor = "contractor",
+}
 
 @Table({
   modelName: "Profile",
@@ -24,8 +28,8 @@ export default class Profile extends Model {
   })
   balance: number;
 
-  @Column({ type: types.enum("client", "contractor") })
-  type: "client" | "contractor";
+  @Column({ type: types.enum(ProfileType) })
+  type: ProfileType;
 
   @HasMany(() => Contract)
   contracts: Contract[];

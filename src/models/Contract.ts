@@ -25,7 +25,7 @@ export default class Contract extends Model {
   @Column({ type: types.string })
   terms: string;
 
-  @Column({ type: types.enum("new", "in_progress", "terminated") })
+  @Column({ type: types.enum(ContractStatus) })
   status: ContractStatus;
 
   @ForeignKey(() => Profile)
