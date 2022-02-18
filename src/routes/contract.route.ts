@@ -8,10 +8,10 @@ router.use(getProfile);
 
 router.get("/contracts/:id", async (req, res) => {
   const { id } = req.params;
-  const clientId = req.profile.id;
+  const { id: profileId, profileKey } = req.profile;
 
   const contract = await Contract.findOne({
-    where: { id, ClientId: clientId },
+    where: { id, [profileKey]: profileId },
   });
 
   if (!contract) return res.status(404).end();

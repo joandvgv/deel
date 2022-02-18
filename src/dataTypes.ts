@@ -7,4 +7,5 @@ export default {
   boolean: DataType.BOOLEAN,
   date: DataType.DATE,
   bigint: DataType.BIGINT,
+  virtual: DataType.VIRTUAL,
 };

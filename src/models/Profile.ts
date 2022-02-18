@@ -31,6 +31,15 @@ export default class Profile extends Model {
   @Column({ type: types.enum(ProfileType) })
   type: ProfileType;
 
+  @Column({ type: types.virtual })
+  get profileKey(): string {
+    const typeMap = {
+      [ProfileType.client]: "ClientId",
+      [ProfileType.contractor]: "ContractorId",
+    };
+    return typeMap[this.type];
+  }
+
   @HasMany(() => Contract)
   contracts: Contract[];
 
