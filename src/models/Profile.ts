@@ -33,4 +33,7 @@ export default class Profile extends Model {
 
   @HasMany(() => Contract)
   contracts: Contract[];
+
+  @HasMany(() => Contract)
+  clients: Contract[];
 }
