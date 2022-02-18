@@ -11,6 +11,12 @@ import types from "../dataTypes";
 import Profile from "./Profile";
 import Job from "./Job";
 
+export enum ContractStatus {
+  new = "new",
+  inProgress = "in_progress",
+  terminated = "terminated",
+}
+
 @Table({
   modelName: "Contract",
 })
@@ -20,7 +26,7 @@ export default class Contract extends Model {
   terms: string;
 
   @Column({ type: types.enum("new", "in_progress", "terminated") })
-  status: "new" | "in_progress" | "terminated";
+  status: ContractStatus;
 
   @ForeignKey(() => Profile)
   @Column({ type: types.bigint })
