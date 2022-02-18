@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { Profile } from "../../src/model";
+import Profile from "../../src/models/Profile";
 
 declare global {
   namespace Express {
