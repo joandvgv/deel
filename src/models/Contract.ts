@@ -36,5 +36,5 @@ export default class Contract extends Model {
   profile: Profile;
 
   @HasMany(() => Job)
-  contracts: Job[];
+  jobs: Job[];
 }

@@ -8,7 +8,9 @@ app.set("sequelize", sequelize);
 app.set("models", sequelize.models);
 
 import ContractRoute from "./routes/contract.route";
+import JobsRoute from "./routes/jobs.route";
 
 app.use("/", ContractRoute);
+app.use("/", JobsRoute);
 
 export default app;
