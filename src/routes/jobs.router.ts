@@ -1,31 +1,14 @@
 import express from "express";
 import { sequelize } from "../database";
 import { getProfile } from "../middleware/getProfile";
-import Contract, { ContractStatus } from "../models/Contract";
-import Job from "../models/Job";
-import Profile from "../models/Profile";
+import JobHandler from "./../handlers/jobs.handler";
 const router = express.Router();
 
 router.use(getProfile);
 
 router.get("/jobs/unpaid", async (req, res) => {
   const { id: profileId, profileKey } = req.profile;
-
-  const contracts = await Contract.findAll({
-    where: {
-      [profileKey]: profileId,
-      status: ContractStatus.inProgress,
-    },
-    include: {
-      model: Job,
-      required: true,
-      where: {
-        paid: false,
-      },
-    },
-  });
-
-  const jobs = contracts?.flatMap(({ jobs: item }) => item) ?? [];
+  const jobs = await JobHandler.getUnpaid(profileId, profileKey);
 
   res.json({ jobs });
 });
@@ -33,22 +16,7 @@ router.get("/jobs/unpaid", async (req, res) => {
 router.post("/jobs/:job_id/pay", async (req, res) => {
   const jobId = req.params.job_id;
   const { id: profileId, balance } = req.profile;
-  const job = await Job.findOne({
-    where: {
-      id: jobId,
-    },
-    include: {
-      model: Contract,
-      required: true,
-      where: {
-        ClientId: profileId,
-      },
-      include: [
-        { model: Profile, as: "contractor" },
-        { model: Profile, as: "client" },
-      ],
-    },
-  });
+  const job = await JobHandler.getById(jobId, profileId, "ClientId");
 
   if (!job) return res.status(404).end();
 
