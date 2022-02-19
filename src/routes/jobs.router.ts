@@ -6,14 +6,14 @@ const router = express.Router();
 
 router.use(getProfile);
 
-router.get("/jobs/unpaid", async (req, res) => {
+router.get("/unpaid", async (req, res) => {
   const { id: profileId, profileKey } = req.profile;
   const jobs = await JobHandler.getUnpaid(profileId, profileKey);
 
   res.json({ jobs });
 });
 
-router.post("/jobs/:job_id/pay", async (req, res) => {
+router.post("/:job_id/pay", async (req, res) => {
   const jobId = req.params.job_id;
   const { id: profileId, balance } = req.profile;
   const job = await JobHandler.getById(jobId, profileId, "ClientId");

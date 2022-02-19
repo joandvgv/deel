@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.use(getProfile);
 
-router.get("/contracts/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
   const { id: profileId, profileKey } = req.profile;
 
@@ -16,7 +16,7 @@ router.get("/contracts/:id", async (req, res) => {
   res.json(contract);
 });
 
-router.get("/contracts", async (req, res) => {
+router.get("/", async (req, res) => {
   const { id: profileId, profileKey } = req.profile;
 
   const contracts = await ContractsHandler.getAllByProfile(

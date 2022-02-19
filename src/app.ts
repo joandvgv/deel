@@ -8,8 +8,10 @@ app.use(bodyParser.json());
 app.set("sequelize", sequelize);
 import ContractsRouter from "./routes/contracts.router";
 import JobsRouter from "./routes/jobs.router";
+import BalancesRouter from "./routes/balances.router";
 
-app.use("/", ContractsRouter);
-app.use("/", JobsRouter);
+app.use("/contracts", ContractsRouter);
+app.use("/jobs", JobsRouter);
+app.use("/balances", BalancesRouter);
 
 export default app;

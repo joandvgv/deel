@@ -1,10 +1,11 @@
-import Profile from "../models/Profile";
 import { RequestHandler } from "express";
+import ProfilesHandler from "./../handlers/profiles.handler";
 
 const getProfile: RequestHandler = async (req, res, next) => {
-  const profile = await Profile.findOne({
-    where: { id: req.get("profile_id") || 0 },
-  });
+  const profileId = req.get("profile_id") || 0;
+
+  const profile = await ProfilesHandler.getById(profileId);
+
   if (!profile) return res.status(401).end();
   req.profile = profile;
   next();
