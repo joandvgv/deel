@@ -6,6 +6,7 @@ import {
   Default,
   ForeignKey,
   BelongsTo,
+  BeforeUpdate,
 } from "sequelize-typescript";
 import types from "../dataTypes";
 import Contract from "./Contract";
@@ -35,4 +36,11 @@ export default class Job extends Model {
 
   @BelongsTo(() => Contract)
   contract: Contract;
+
+  @BeforeUpdate
+  static verifyPayment(instance: Job) {
+    if (instance.paid && !instance.paymentDate) {
+      instance.paymentDate = new Date();
+    }
+  }
 }

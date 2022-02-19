@@ -36,10 +36,16 @@ export default class Contract extends Model {
   @Column({ type: types.bigint })
   ContractorId: number;
 
-  @BelongsTo(() => Profile)
+  @BelongsTo(() => Profile, {
+    as: "client",
+    foreignKey: "ClientId",
+  })
   client: Profile;
 
-  @BelongsTo(() => Profile)
+  @BelongsTo(() => Profile, {
+    as: "contractor",
+    foreignKey: "ContractorId",
+  })
   contractor: Profile;
 
   @HasMany(() => Job)
