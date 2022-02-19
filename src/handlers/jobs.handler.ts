@@ -1,3 +1,5 @@
+import { Op } from "sequelize";
+import { sequelize } from "../database";
 import Contract, { ContractStatus } from "../models/Contract";
 import Job from "../models/Job";
 import Profile from "../models/Profile";
@@ -47,5 +49,36 @@ export default class JobHandler {
       },
       include: includeOptions,
     });
+  }
+
+  static async getTopEarner(start: string, end: string) {
+    const groupingKey = "Contract.ContractorId";
+    const aggregateKey = "total_amount";
+
+    const [job] = await Job.findAll({
+      where: {
+        paid: true,
+        paymentDate: {
+          [Op.and]: {
+            [Op.gte]: new Date(start),
+            [Op.lte]: new Date(end),
+          },
+        },
+      },
+      attributes: [
+        groupingKey,
+        [sequelize.fn("sum", sequelize.col("price")), aggregateKey],
+      ],
+      include: {
+        model: Contract,
+        required: true,
+        include: [{ model: Profile, as: "contractor", required: true }],
+      },
+      group: [groupingKey],
+      order: [[sequelize.literal(aggregateKey), "DESC"]],
+      limit: 1,
+    });
+
+    return job?.contract.contractor ?? null;
   }
 }
