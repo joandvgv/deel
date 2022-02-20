@@ -40,6 +40,11 @@ export default class Profile extends Model {
     return typeMap[this.type];
   }
 
+  @Column({ type: types.virtual })
+  get fullName(): string {
+    return `${this.firstName} ${this.lastName}`;
+  }
+
   @HasMany(() => Contract)
   contracts: Contract[];
 
