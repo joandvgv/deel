@@ -1,5 +1,5 @@
 /**
- * Basic date validation
+ * Basic date validation:  NOTE: this is NOT a robust date validation
  * @param date
  * @returns boolean - Whether string is in YYYYMMDD format
  */

@@ -4,7 +4,7 @@ import cls from "cls-hooked";
 import path from "path";
 const namespace = cls.createNamespace("sequelize-transactions");
 
-Sequelize.useCLS(namespace);
+Sequelize.useCLS(namespace); // allows to use transactions w/o passing it to every call inside trans block
 
 export const sequelize = new Sequelize({
   dialect: "sqlite",
