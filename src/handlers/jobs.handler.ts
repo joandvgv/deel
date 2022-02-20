@@ -91,8 +91,6 @@ export default class JobHandler {
       limit,
     });
 
-    console.log({ jobs });
-
     return jobs.map((job) => {
       const profile = job.contract[type];
       const amountKey = type === ProfileType.client ? "paid" : "earned";
