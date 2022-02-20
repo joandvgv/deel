@@ -16,7 +16,7 @@ router.get("/unpaid", async (req, res) => {
 router.post("/:job_id/pay", async (req, res) => {
   const jobId = req.params.job_id;
   const { id: profileId, balance } = req.profile;
-  const job = await JobHandler.getById(jobId, profileId, "ClientId");
+  const job = await JobHandler.getById(jobId, profileId, "clientId");
 
   if (!job) return res.status(404).end();
 

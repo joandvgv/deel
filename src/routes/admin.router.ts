@@ -24,7 +24,7 @@ router.get("/best-profession", async (req, res) => {
     1
   );
 
-  if (!contractor) return res.status(404);
+  if (!contractor) return res.status(404).end();
 
   return res.json({ profession: contractor.profession });
 });

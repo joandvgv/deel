@@ -58,10 +58,10 @@ export default class JobHandler {
     limit: number
   ) {
     const groupingKeyMap: {
-      [key in typeof type]: "ContractorId" | "ClientId";
+      [key in typeof type]: "contractorId" | "clientId";
     } = {
-      client: "ClientId",
-      contractor: "ContractorId",
+      client: "clientId",
+      contractor: "contractorId",
     };
 
     const groupingKey = `Contract.${groupingKeyMap[type]}`;
@@ -90,6 +90,8 @@ export default class JobHandler {
       order: [[sequelize.literal(aggregateKey), "DESC"]],
       limit,
     });
+
+    console.log({ jobs });
 
     return jobs.map((job) => {
       const profile = job.contract[type];

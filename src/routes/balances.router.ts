@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.use(getProfile);
 
-router.post("/deposit/:userId", async (req, res) => {
-  const { userId } = req.params;
+router.post("/deposit/:user_id", async (req, res) => {
+  const { user_id: userId } = req.params;
   const { amount } = req.body;
   const { id: profileId, profileKey } = req.profile;
 

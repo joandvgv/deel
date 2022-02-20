@@ -34,8 +34,8 @@ export default class Profile extends Model {
   @Column({ type: types.virtual })
   get profileKey(): string {
     const typeMap = {
-      [ProfileType.client]: "ClientId",
-      [ProfileType.contractor]: "ContractorId",
+      [ProfileType.client]: "clientId",
+      [ProfileType.contractor]: "contractorId",
     };
     return typeMap[this.type];
   }

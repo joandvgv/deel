@@ -32,7 +32,7 @@ export default class Job extends Model {
 
   @ForeignKey(() => Contract)
   @Column({ type: types.bigint })
-  ContractId: number;
+  contractId: number;
 
   @BelongsTo(() => Contract)
   contract: Contract;
