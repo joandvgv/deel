@@ -58,10 +58,10 @@ export default class JobHandler {
     limit: number
   ) {
     const groupingKeyMap: {
-      [key in typeof type]: "contractorId" | "clientId";
+      [key in typeof type]: string;
     } = {
       client: "clientId",
-      contractor: "contractorId",
+      contractor: "contractor.profession",
     };
 
     const groupingKey = `Contract.${groupingKeyMap[type]}`;
